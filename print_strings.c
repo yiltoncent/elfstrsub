@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "list.h"  
 
 enum {
     _sch_isprint = 0x0010,
@@ -47,4 +48,20 @@ const unsigned short _sch_istable[256] =
     &&   (c) <= 255 \
     &&   ( (c) == '\t'  || ISPRINT(c) || ISSPACE(c) ) \
     )
+
+typedef struct _strs_info
+{
+    char *src_start; //store original postion of a GRAPHIC string, including start and end. 
+    char *src_end;
+    int *file_start;   //all strings stored in one big char array, so we only want to know a string's length
+    int len;
+}strs_info;
+
+LIST_HEAD(meta_strinfo_list); 
+
+typedef struct _t_meta_strinfo_struct  
+{  
+    strs_info strinfo;
+    struct list_head entry;  
+} t_meta_strinfo_struct ; 
 
